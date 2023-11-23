@@ -1,15 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {useState} from 'react';
-import { StyleSheet, Text, TextInput, View, Button, TouchableOpacity, Image, Alert, FlatList } from 'react-native';
+import { StyleSheet, Text, TextInput, View, Button, TouchableOpacity, Image, Alert } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Calendar } from 'react-native-calendars';
-import Modal from 'react-native-modal';
 
-
-// npm install react-native-calendars
-
+// Stack para almacenar las paginas
 const Stack = createStackNavigator();
 const colorIcon = "#fcfc79"
 
@@ -31,6 +28,7 @@ function LoginScreen({ navigation }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
+  // esto deberia estar en una base de datos
   const user = "A";
   const psw = "A"
 
@@ -249,25 +247,5 @@ const styles = StyleSheet.create({
     fontWeight: 'bold', 
     fontSize: 20, 
     marginLeft: 5,
-  },
-
-  modalContent: {
-    backgroundColor: 'white',
-    padding: 22,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 4,
-    borderColor: 'rgba(0, 0, 0, 0.1)',
-  },
-
-  noteItem: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 10,
-  },
-  deleteButton: {
-    color: 'red',
-    marginLeft: 10,
   },
 });
