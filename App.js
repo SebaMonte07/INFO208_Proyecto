@@ -149,31 +149,9 @@ function PregFrecScreen ({ navigation }) {
 
 function CalendarioScreen({ navigation }) {
   const [selectedDate, setSelectedDate] = useState('');
-  const [isModalVisible, setModalVisible] = useState(false);
-  const [note, setNote] = useState('');
-  const [notes, setNotes] = useState({});
 
   const diaPresionado = (day) => {
     setSelectedDate(day.dateString);
-    setModalVisible(true);
-  };
-
-  const visibilidadModal = () => {
-    setModalVisible(!isModalVisible);
-  };
-
-  const saveNote = () => {
-    const existingNotes = notes[selectedDate] || [];
-    const updatedNotes = { ...notes, [selectedDate]: [...existingNotes, note] };
-    setNotes(updatedNotes);
-    setNote('');
-    visibilidadModal();
-  };
-
-  const deleteNote = (index) => {
-    const existingNotes = notes[selectedDate] || [];
-    const updatedNotes = [...existingNotes.slice(0, index), ...existingNotes.slice(index + 1)];
-    setNotes({ ...notes, [selectedDate]: updatedNotes });
   };
 
   return (
@@ -186,57 +164,20 @@ function CalendarioScreen({ navigation }) {
             width: 300,
           }}
           onDayPress={diaPresionado}
-          markedDates={{
-            [selectedDate]: { selected: true, selectedColor: 'skyblue' },
-            ...Object.keys(notes).reduce((acc, date) => {
-              acc[date] = { marked: true, dotColor: 'blue' }; // Marcar días con notas
-              return acc;
-            }, {}),
-          }}
+          markedDates={{ [selectedDate]: { selected: true, selectedColor: '#fcfc79' } }}
           theme={{
-            calendarBackground: 'black',
+            calendarBackground: '#262626',
             textSectionTitleColor: 'white',
-            selectedDayBackgroundColor: 'yellow',
             selectedDayTextColor: 'black',
             todayTextColor: 'skyblue',
             dayTextColor: 'white',
             textDisabledColor: '#555555',
             selectedDotColor: 'white',
-            arrowColor: 'yellow',
+            arrowColor: '#fcfc79',
             monthTextColor: 'white',
           }}
         />
       </View>
-
-      <Modal isVisible={isModalVisible}>
-        <View style={styles.modalContent}>
-          <Text>Agregar Nota para {selectedDate}</Text>
-          <FlatList
-            data={notes[selectedDate] || []}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item, index }) => (
-              <View style={styles.noteItem}>
-                <Text>{item}</Text>
-                <TouchableOpacity onPress={() => deleteNote(index)}>
-                  <Text style={styles.deleteButton}>Eliminar</Text>
-                </TouchableOpacity>
-              </View>
-            )}
-          />
-          <TextInput
-            style={styles.input}
-            placeholder="Ingresa tu nota"
-            onChangeText={(text) => setNote(text)}
-            value={note}
-          />
-          <TouchableOpacity onPress={saveNote}>
-            <Text>Guardar</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={visibilidadModal}>
-            <Text>Cancelar</Text>
-          </TouchableOpacity>
-        </View>
-      </Modal>
     </View>
   );
 }
