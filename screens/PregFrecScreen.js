@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, TextInput, TouchableHighlight, ImageBackground } from 'react-native';
 import Modal from 'react-native-modal';
 
-const backgroundImage = require('../assets/fondoP.png'); // Ajusta la ruta de la imagen
+const backgroundImage = require('../assets/fondoP.png'); 
 
 const PregFrecScreen = ({ navigation }) => {
   const [preguntasRespuestas, setPreguntasRespuestas] = useState([
@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
   },
   preguntaContainer: {
     marginBottom: 15,
-    backgroundColor: 'rgba(255, 255, 255, 0.7)', // Fondo blanco semi-transparente
+    backgroundColor: 'rgba(255, 255, 255, 0.7)', 
     padding: 10,
     borderRadius: 15,
     width: '93%',
@@ -175,12 +175,12 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.2,
     shadowRadius: 10,
-    borderWidth: 4, // Agrega un borde
-    borderColor: 'rgba(0, 0, 0, 0.1)', // Color del borde (más oscuro que el fondo)
+    borderWidth: 4, 
+    borderColor: 'rgba(0, 0, 0, 0.1)', 
   },
   
   lastPreguntaContainer: {
-    marginBottom: 80, // Ajusta según sea necesario
+    marginBottom: 80, 
   },
   pregunta: {
     fontSize: 18,
