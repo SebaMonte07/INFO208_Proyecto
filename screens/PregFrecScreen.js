@@ -4,7 +4,7 @@ import Modal from 'react-native-modal';
 
 const backgroundImage = require('../assets/fondoP.png'); 
 
-const PregFrecScreen = ({ navigation }) => {
+const PregFrecScreen = ({ navigation , route }) => {
   const [preguntasRespuestas, setPreguntasRespuestas] = useState([
     { pregunta: '¿Cuál es tu color favorito?', respuesta: 'Mi color favorito es el azul.' },
     { pregunta: '¿Cuál es tu comida preferida?', respuesta: 'Me encanta la pizza.' },

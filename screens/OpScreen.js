@@ -4,7 +4,9 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 const colorIcon = "#fcfc79"
 
-const OpcionesScreen = ({ navigation }) => {
+const OpcionesScreen = ({ navigation , route }) => {
+
+  const { username } = route.params;
 
     return (
       <View style={styles.container}>
@@ -13,7 +15,7 @@ const OpcionesScreen = ({ navigation }) => {
           <View style={styles.buttonContainer}>
   
             <View style={styles.separacion}>
-              <TouchableOpacity onPress={() => navigation.navigate('ForoConsultas')} style={{flexDirection:'row'}}>
+              <TouchableOpacity onPress={() => navigation.navigate('ForoConsultas',{ username: username }) } style={{flexDirection:'row'}}>
                 <Icon name="circle" size={25} color={colorIcon}/>
                 <Text style={styles.botonOpciones}>
                   Foro Consultas
@@ -22,7 +24,7 @@ const OpcionesScreen = ({ navigation }) => {
             </View>
   
             <View style={styles.separacion}>
-              <TouchableOpacity onPress={() => navigation.navigate('PreguntasFrecuentes')} style={{flexDirection:'row'}}>
+              <TouchableOpacity onPress={() => navigation.navigate('PreguntasFrecuentes',{ username: username })} style={{flexDirection:'row'}}>
                 <Icon name="circle" size={25} color={colorIcon}/>
                 <Text style={styles.botonOpciones}>
                   Preguntas Frecuentes
