@@ -17,9 +17,7 @@ const ForoScreen = ({ navigation, route }) => {
     { pregunta: '¿Cuál es tu comida favorita?', respuestas: [], topico: 'becas' },
     { pregunta: '¿Prefieres café o té?', respuestas: [], topico: 'general' },
     { pregunta: '¿Cuál es tu lugar de vacaciones ideal?', respuestas: [], topico: 'calendario' },
-   
   ]);
-  
 
   const [preguntaSeleccionada, setPreguntaSeleccionada] = useState(null);
   const [responderModalVisible, setResponderModalVisible] = useState(false);
@@ -28,7 +26,8 @@ const ForoScreen = ({ navigation, route }) => {
   const [agregarModalVisible, setAgregarModalVisible] = useState(false);
   const [nuevaPregunta, setNuevaPregunta] = useState('');
   const [topico, setTopico] = useState('general');
-
+  const [respuestaExcedeLimite, setRespuestaExcedeLimite] = useState(false);
+  const [respuestaVacia, setRespuestaVacia] = useState(false);
 
   const handlePreguntaPress = (index) => {
     setPreguntaSeleccionada(index === preguntaSeleccionada ? null : index);
@@ -40,6 +39,18 @@ const ForoScreen = ({ navigation, route }) => {
   };
 
   const agregarRespuesta = () => {
+    if (nuevaRespuesta.trim() === '') {
+      setRespuestaVacia(true);
+      setRespuestaExcedeLimite(false);
+      return;
+    }
+
+    if (nuevaRespuesta.length > 500) {
+      setRespuestaExcedeLimite(true);
+      setRespuestaVacia(false);
+      return;
+    }
+
     const nuevasPreguntas = [...preguntasRespuestas];
     const pregunta = nuevasPreguntas[preguntaSeleccionada];
     const respuestaConNombre = `${nombreUsuario}: ${nuevaRespuesta}`;
@@ -48,6 +59,8 @@ const ForoScreen = ({ navigation, route }) => {
     setResponderModalVisible(false);
     setPreguntaSeleccionada(null);
     setNuevaRespuesta('');
+    setRespuestaExcedeLimite(false);
+    setRespuestaVacia(false);
   };
 
   const agregarPregunta = () => {
@@ -151,6 +164,8 @@ const ForoScreen = ({ navigation, route }) => {
               value={nuevaRespuesta}
               onChangeText={(text) => setNuevaRespuesta(text)}
             />
+            {respuestaVacia && <Text style={styles.errorText}>La respuesta no puede estar vacía.</Text>}
+            {respuestaExcedeLimite && <Text style={styles.errorText}>La respuesta no puede superar los 500 caracteres.</Text>}
             <View style={styles.buttonContainer}>
               <TouchableHighlight
                 style={[styles.dialogButton, styles.dialogButtonYes]}
@@ -181,7 +196,7 @@ const pickerSelectStyles = StyleSheet.create({
     borderColor: 'gray',
     borderRadius: 4,
     color: 'black',
-    paddingRight: 30, 
+    paddingRight: 30,
   },
   inputAndroid: {
     fontSize: 16,
@@ -191,9 +206,10 @@ const pickerSelectStyles = StyleSheet.create({
     borderColor: 'purple',
     borderRadius: 8,
     color: 'black',
-    paddingRight: 30, 
+    paddingRight: 30,
   },
 });
+
 
 const styles = StyleSheet.create({
   backgroundImage: {
@@ -219,6 +235,15 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 15,
     width: '93%',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 10,
+    borderWidth: 4,
+    borderColor: 'rgba(0, 0, 0, 0.1)',
   },
   lastPreguntaContainer: {
     marginBottom: 60,
@@ -293,6 +318,10 @@ const styles = StyleSheet.create({
   topico: {
     fontSize: 14,
     color: '#777777',
+  },
+  errorText: {
+    color: 'red',
+    marginBottom: 10,
   },
 });
 

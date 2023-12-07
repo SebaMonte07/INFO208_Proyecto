@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, TextInput, TouchableHighlight, ImageBackground } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, TextInput, TouchableHighlight, ImageBackground, ToastAndroid } from 'react-native';
 import Modal from 'react-native-modal';
 
 const backgroundImage = require('../assets/fondoP.png'); 
 
-const PregFrecScreen = ({ navigation , route }) => {
+const PregFrecScreen = ({ navigation, route }) => {
   const [preguntasRespuestas, setPreguntasRespuestas] = useState([
     { pregunta: '¿Cuál es tu color favorito?', respuesta: 'Mi color favorito es el azul.' },
     { pregunta: '¿Cuál es tu comida preferida?', respuesta: 'Me encanta la pizza.' },
@@ -17,13 +17,16 @@ const PregFrecScreen = ({ navigation , route }) => {
     { pregunta: '¿Cuál es tu libro favorito?', respuesta: 'Mi libro favorito es El señor de los anillos.' },
     { pregunta: '¿Cuál es tu libro favorito?', respuesta: 'Mi libro favorito es El señor de los anillos.' },
     { pregunta: '¿Pellao?', respuesta: 'si.' },
-]);
+  ]);
 
   const [preguntaSeleccionada, setPreguntaSeleccionada] = useState(null);
   const [eliminarModalVisible, setEliminarModalVisible] = useState(false);
   const [nuevaPregunta, setNuevaPregunta] = useState('');
   const [nuevaRespuesta, setNuevaRespuesta] = useState('');
   const [agregarModalVisible, setAgregarModalVisible] = useState(false);
+
+  const { username } = route.params;
+  const nombreUsuario = useState(username);
 
   const handlePreguntaPress = (index) => {
     setPreguntaSeleccionada(index === preguntaSeleccionada ? null : index);
@@ -35,19 +38,46 @@ const PregFrecScreen = ({ navigation , route }) => {
   };
 
   const eliminarPregunta = () => {
-    const nuevasPreguntas = [...preguntasRespuestas];
-    nuevasPreguntas.splice(preguntaSeleccionada, 1);
-    setPreguntasRespuestas(nuevasPreguntas);
-    setEliminarModalVisible(false);
-    setPreguntaSeleccionada(null);
+    if (nombreUsuario === 'Secretaria') {
+      const nuevasPreguntas = [...preguntasRespuestas];
+      nuevasPreguntas.splice(preguntaSeleccionada, 1);
+      setPreguntasRespuestas(nuevasPreguntas);
+      setEliminarModalVisible(false);
+      setPreguntaSeleccionada(null);
+    } else {
+      // Cierra la ventana modal
+      setEliminarModalVisible(false);
+  
+      // Muestra el mensaje de error en la parte superior
+      ToastAndroid.showWithGravityAndOffset(
+        'No tienes permiso para eliminar preguntas.',
+        ToastAndroid.LONG,
+        ToastAndroid.TOP,
+        0,
+        200,
+      );
+    }
   };
-
   const agregarPregunta = () => {
-    const nuevaPreguntaObj = { pregunta: nuevaPregunta, respuesta: nuevaRespuesta };
-    setPreguntasRespuestas([...preguntasRespuestas, nuevaPreguntaObj]);
-    setNuevaPregunta('');
-    setNuevaRespuesta('');
-    setAgregarModalVisible(false);
+    if (nombreUsuario === 'Secretaria') {
+      const nuevaPreguntaObj = { pregunta: nuevaPregunta, respuesta: nuevaRespuesta };
+      setPreguntasRespuestas([...preguntasRespuestas, nuevaPreguntaObj]);
+      setNuevaPregunta('');
+      setNuevaRespuesta('');
+      setAgregarModalVisible(false);
+    } else {
+      // Cierra la ventana modal
+      setAgregarModalVisible(false);
+
+      // Muestra el mensaje de error en la parte superior
+      ToastAndroid.showWithGravityAndOffset(
+        'No tienes permiso para agregar preguntas.',
+        ToastAndroid.LONG,
+        ToastAndroid.TOP,
+        0,
+        200,
+      );
+    }
   };
 
   return (
@@ -72,7 +102,6 @@ const PregFrecScreen = ({ navigation , route }) => {
           ))}
         </ScrollView>
 
-        {/* Botón para agregar pregunta */}
         <TouchableOpacity
           style={styles.agregarButton}
           onPress={() => setAgregarModalVisible(true)}
@@ -80,7 +109,6 @@ const PregFrecScreen = ({ navigation , route }) => {
           <Text style={styles.agregarButtonText}>+</Text>
         </TouchableOpacity>
 
-        {/* Modal para ingresar nueva pregunta y respuesta */}
         <Modal
           animationType="slide"
           isVisible={agregarModalVisible}
@@ -117,7 +145,6 @@ const PregFrecScreen = ({ navigation , route }) => {
           </View>
         </Modal>
 
-        {/* Modal para confirmar eliminación */}
         <Modal isVisible={eliminarModalVisible}>
           <View style={styles.eliminarModalContainer}>
             <Text style={[styles.eliminarModalText, styles.boldText]}>
@@ -178,7 +205,6 @@ const styles = StyleSheet.create({
     borderWidth: 4, 
     borderColor: 'rgba(0, 0, 0, 0.1)', 
   },
-  
   lastPreguntaContainer: {
     marginBottom: 80, 
   },
