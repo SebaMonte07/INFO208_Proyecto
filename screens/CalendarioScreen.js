@@ -40,7 +40,8 @@ const CalendarioScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#fcd381',
+      backgroundColor: '#E0FFFF',
+      //backgroundColor: '#fcd381',
       justifyContent: 'center',
       alignItems: 'center',
     },
