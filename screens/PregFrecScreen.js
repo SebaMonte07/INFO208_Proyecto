@@ -26,7 +26,7 @@ const PregFrecScreen = ({ navigation, route }) => {
   const [agregarModalVisible, setAgregarModalVisible] = useState(false);
 
   const { username } = route.params;
-  const nombreUsuario = useState(username);
+  const nombreUsuario = useState(username)[0];
 
   const handlePreguntaPress = (index) => {
     setPreguntaSeleccionada(index === preguntaSeleccionada ? null : index);
