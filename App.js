@@ -14,16 +14,26 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Login">
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Opciones" component={OpcionesScreen} />
-        <Stack.Screen name="ForoConsultas" component={ForoScreen} />
-        <Stack.Screen name="PreguntasFrecuentes" component={PregFrecScreen} />
-        <Stack.Screen name="Calendario" component={CalendarioScreen} />
+        <Stack.Screen
+          name="Login" component={LoginScreen}
+          options={{ headerShown: false }} // Oculta el encabezado en la pantalla "LoginScreen"
+        /> 
+        <Stack.Screen
+        name="Opciones" component={OpcionesScreen}
+        />
+        <Stack.Screen
+        name="ForoConsultas" component={ForoScreen}
+        />
+        <Stack.Screen
+        name="PreguntasFrecuentes" component={PregFrecScreen}
+        />
+        <Stack.Screen
+        name="Calendario" component={CalendarioScreen}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
-
 
 const styles = StyleSheet.create({
   
