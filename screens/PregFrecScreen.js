@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, TextInput, TouchableHighlight, ImageBackground } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, TextInput, TouchableHighlight, ImageBackground, ToastAndroid } from 'react-native';
 import Modal from 'react-native-modal';
 
 const backgroundImage = require('../assets/fondoP.png'); 
