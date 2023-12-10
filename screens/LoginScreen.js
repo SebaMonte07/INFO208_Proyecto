@@ -112,7 +112,6 @@ const styles = StyleSheet.create({
   },
 
   titulo: {
-    fontFamily: 'Georgia',
     fontSize: 20,
     marginBottom: 0,
   },
