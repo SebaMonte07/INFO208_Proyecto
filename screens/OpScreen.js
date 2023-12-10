@@ -11,30 +11,31 @@ const OpcionesScreen = ({ navigation , route }) => {
     return (
       <View style={styles.container}>
         <View style={styles.container2}>
-          <Text style={styles.titulo}>Opciones </Text>
+          <Text
+            style={styles.titulo}>Opciones
+          </Text>
           <View style={styles.buttonContainer}>
-  
-            <View style={styles.separacion}>
+            <View style={styles.containerOpcion}>
               <TouchableOpacity onPress={() => navigation.navigate('ForoConsultas',{ username: username }) } style={{flexDirection:'row'}}>
-                <Icon name="circle" size={25} color={colorIcon}/>
+                <Icon name="circle" size={25} color={'#00994D'}/>
                 <Text style={styles.botonOpciones}>
                   Foro Consultas
                 </Text>
               </TouchableOpacity>
             </View>
   
-            <View style={styles.separacion}>
+            <View style={styles.containerOpcion}>
               <TouchableOpacity onPress={() => navigation.navigate('PreguntasFrecuentes',{ username: username })} style={{flexDirection:'row'}}>
-                <Icon name="circle" size={25} color={colorIcon}/>
+                <Icon name="circle" size={25} color={'#00994D'}/>
                 <Text style={styles.botonOpciones}>
                   Preguntas Frecuentes
                 </Text>
               </TouchableOpacity>
             </View>
   
-            <View style={styles.separacion}>
+            <View style={styles.containerOpcion}>
               <TouchableOpacity onPress={() => navigation.navigate('Calendario')} style={{flexDirection:'row'}}>
-                <Icon name="circle" size={25} color={colorIcon}/>
+                <Icon name="circle" size={25} color={'#00994D'}/>
                 <Text style={styles.botonOpciones}>
                   Calendario
                 </Text>
@@ -50,13 +51,15 @@ const OpcionesScreen = ({ navigation , route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fcd381',
+    backgroundColor: '#E0FFFF',
+    //backgroundColor: '#fcd381',
     justifyContent: 'center',
     alignItems: 'center',
   },
 
   container2: {
-    backgroundColor: '#fab778',
+    backgroundColor: 'skyblue',
+    //backgroundColor: '#fab778',
     height: 240,
     width: 300,
     alignItems: 'center',
@@ -65,26 +68,31 @@ const styles = StyleSheet.create({
   },
 
   titulo:{
+    //backgroundColor: '#00994D',
     fontSize: 20,
-    marginBottom: 0,
+    marginBottom: 25,
   },
 
+//Contiene los 3 botones
   buttonContainer: {
-    width: '70%',
-    flexDirection: 'column',
-    marginTop:10,
+    //backgroundColor: 'red',
+    width: 250,
   },
 
-  separacion:{
-    marginBottom: 10,
-  }, 
+// Recuadro con el circulo y el texto
+  containerOpcion:{
+    //backgroundColor: 'black',
+    marginBottom: 20,
+  },
 
+// Recuadro que contiene el texto de la 'opcion'
   botonOpciones:{
-    color: 'black', 
-    textAlign: 'center', 
-    fontWeight: 'bold', 
-    fontSize: 20, 
-    marginLeft: 5,
+    //backgroundColor: 'green',
+    marginLeft: 10,
+    color: 'black', // Color del texto
+    textAlign: 'left',
+    fontWeight: 'bold',
+    fontSize: 20,
   },
 });
   
