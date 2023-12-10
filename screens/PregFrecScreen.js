@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, TextInput, TouchableHighlight, ImageBackground, ToastAndroid } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, TextInput, TouchableHighlight, ImageBackground, Platform } from 'react-native';
 import Modal from 'react-native-modal';
 
 const backgroundImage = require('../assets/fondoP.png'); 
@@ -48,14 +48,18 @@ const PregFrecScreen = ({ navigation, route }) => {
       // Cierra la ventana modal
       setEliminarModalVisible(false);
   
-      // Muestra el mensaje de error en la parte superior
-      ToastAndroid.showWithGravityAndOffset(
-        'No tienes permiso para eliminar preguntas.',
-        ToastAndroid.LONG,
-        ToastAndroid.TOP,
-        0,
-        200,
-      );
+      // Muestra el mensaje de error según la plataforma
+      if (Platform.OS === 'android') {
+        ToastAndroid.showWithGravityAndOffset(
+          'No tienes permiso para eliminar preguntas.',
+          ToastAndroid.LONG,
+          ToastAndroid.TOP,
+          0,
+          200,
+        );
+      } else {
+        alert('No tienes permiso para eliminar preguntas.');
+      }
     }
   };
   const agregarPregunta = () => {
@@ -69,14 +73,18 @@ const PregFrecScreen = ({ navigation, route }) => {
       // Cierra la ventana modal
       setAgregarModalVisible(false);
 
-      // Muestra el mensaje de error en la parte superior
-      ToastAndroid.showWithGravityAndOffset(
-        'No tienes permiso para agregar preguntas.',
-        ToastAndroid.LONG,
-        ToastAndroid.TOP,
-        0,
-        200,
-      );
+      // Muestra el mensaje de error según la plataforma
+      if (Platform.OS === 'android') {
+        ToastAndroid.showWithGravityAndOffset(
+          'No tienes permiso para agregar preguntas.',
+          ToastAndroid.LONG,
+          ToastAndroid.TOP,
+          0,
+          200,
+        );
+      } else {
+        alert('No tienes permiso para agregar preguntas.');
+      }
     }
   };
 
